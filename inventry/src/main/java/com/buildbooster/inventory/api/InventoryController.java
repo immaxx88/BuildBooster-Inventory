@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.buildbooster.inventory.exception.InventoryServiceException;
 import com.buildbooster.inventory.model.InventoryModel;
+import com.buildbooster.inventory.request.InventoryRequest;
 import com.buildbooster.inventory.response.InventoryResponse;
 import com.buildbooster.inventory.service.InventoryService;
+import com.buildbooster.inventory.transformer.RequestTransformer;
 import com.buildbooster.inventory.validator.RequestValidator;
 
 import io.swagger.annotations.ApiOperation;
@@ -28,13 +30,16 @@ public class InventoryController {
 	RequestValidator requestValidator;
 	
 	@Autowired
+	RequestTransformer requestTransformer;
+	
+	@Autowired
 	InventoryResponse inventoryResponse;
 
 	@RequestMapping(value = "/getallrecords", method = RequestMethod.GET, produces = "application/json")
 	@ApiOperation(value = "Method for getting all records from inventry")
 	public List<InventoryResponse> getAllFromDB() throws InventoryServiceException {
 		// TODO code for validator
-		InventoryResponse inventoryResponse = new InventoryResponse();
+		//InventoryResponse inventoryResponse = new InventoryResponse();
 		
 		requestValidator.checkInventryRequest("parameter");
 		// TODO Service call
@@ -45,8 +50,12 @@ public class InventoryController {
 	
 	@RequestMapping(value = "/createinventory", method = RequestMethod.POST, produces = "application/json" )
 	@ApiOperation(value = "Method for creating a Inventory")
-	public InventoryResponse createInventory(@RequestBody InventoryModel inventoryModel) throws InventoryServiceException {
-		return  inventoryService.saveInventory(inventoryModel);
+	public InventoryResponse createInventory(@RequestBody InventoryRequest inventoryRequest) throws InventoryServiceException {
+		//System.out.println("In Create Inventory");
+		requestValidator.checkInventryRequest(inventoryRequest);
+		InventoryModel transformInventryRequest = requestTransformer.transformInventryRequest(inventoryRequest);
+
+		return  inventoryService.saveInventory(transformInventryRequest);
 		//return ResponseEntity<InventoryResponse> ;
 	}
 	

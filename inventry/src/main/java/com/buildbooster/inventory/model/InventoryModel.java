@@ -13,9 +13,12 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name = "catalog")
+@Table(name = "inventory_item")
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class InventoryModel {
 
 //	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,56 +27,56 @@ public class InventoryModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "inventoryItemId", length = 255)
+	@Column(name = "inventoryItemId")
 	@NotNull
 	private Long inventoryItemId;
 
-	@Column(name = "productId", length = 255)
+	@Column(name = "productId")
 	@NotNull
 	private Long productId;
 
-	@Column(name = "inventoryItemTypeId", length = 255)
+	@Column(name = "inventoryItemTypeId")
 	@NotNull
 	private Long inventoryItemTypeId;
 
-	@Column(name = "companyId", length = 255)
+	@Column(name = "companyId")
 	@NotNull
 	private Long companyId;
 
-	@Column(name = "cUserId", length = 255)
+	@Column(name = "cUserId")
 	@NotNull
 	private Long cUserId;
 
 	@Column(name = "datetimeReceived")
 	private Date datetimeReceived;
 
-	@Column(name = "facilityId", length = 255)
+	@Column(name = "facilityId")
 	@NotNull
 	private Long facilityId;
 
-	@Column(name = "lotId", length = 255)
+	@Column(name = "lotId")
 	@NotNull
 	private Long lotId;
 
-	@Column(name = "uomId", length = 255)
+	@Column(name = "uomId")
 	@NotNull
 	private Long uomId;
 
-	@Column(name = "comments", length = 255)
+	@Column(name = "comments")
 	private String comments;
 
-	@Column(name = "quantityOnHandTotal", length = 10)
+	@Column(name = "quantityOnHandTotal")
 	@NotNull
 	private Integer quantityOnHandTotal;
 
-	@Column(name = "unitCost", length = 10)
+	@Column(name = "unitCost")
 	@NotNull
 	private Float unitCost;
 
 	@Column(name = "createdDate")
 	private Date createdDate;
 
-	@Column(name = "thresholdQuantityValue", length = 10)
+	@Column(name = "thresholdQuantityValue")
 	@NotNull
 	private Integer thresholdQuantityValue;
 
@@ -97,6 +100,8 @@ public class InventoryModel {
 		this.createdDate = createdDate;
 		this.thresholdQuantityValue = thresholdQuantityValue;
 	}
+
+	
 
 	public Long getInventoryItemId() {
 		return inventoryItemId;

@@ -1,6 +1,5 @@
 package com.buildbooster.inventory.transformer;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.buildbooster.inventory.model.InventoryModel;
@@ -44,9 +43,7 @@ public class ResponseTransformer {
 		
 		inventoryResponse.setThresholdQuantityValue(inventoryModel.getThresholdQuantityValue());
 		
-	
-		// TODO Auto-generated method stub
-		return null;
+		return inventoryResponse;
 	}
 
 }

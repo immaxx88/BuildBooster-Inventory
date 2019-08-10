@@ -214,9 +214,5 @@ public class InventoryModel {
 	public void setThresholdQuantityValue(Integer thresholdQuantityValue) {
 		this.thresholdQuantityValue = thresholdQuantityValue;
 	}
-	
-	
-
-
 
 }

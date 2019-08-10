@@ -11,7 +11,7 @@ public class RequestTransformer {
 	public InventoryModel transformInventryRequest(InventoryRequest inventoryModelRequest) {
 		InventoryModel inventoryModel = new InventoryModel();
 		
-		inventoryModel.setInventoryItemId(inventoryModelRequest.getInventoryItemId());
+		//inventoryModel.setInventoryItemId(inventoryModelRequest.getInventoryItemId());
 
 		inventoryModel.setProductId(inventoryModelRequest.getProductId());
 

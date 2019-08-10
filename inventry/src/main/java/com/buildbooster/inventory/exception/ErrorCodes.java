@@ -5,11 +5,11 @@ import java.text.MessageFormat;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorCodes implements ErrorCode {
-	// Catalog specific response error codes and error response.
+	// Inventory specific response error codes and error response.
 	MANDATORY_ELEMENT_MISSING(1, HttpStatus.BAD_REQUEST, "Mandatory element {0} missing in the request"),
 	NOT_FOUND(2, HttpStatus.NOT_FOUND, "Element not found in db {0}"),
 	FAILD_TO_SAVE(3, HttpStatus.BAD_REQUEST, "Failed to save inventory {0}"),
-	ERROR_WHILE_FETCHING(4,HttpStatus.NOT_FOUND,"Records not found");
+	ERROR_WHILE_FETCHING(4,HttpStatus.NOT_FOUND,"Records not found")
 	;
 
 	/** Begin of the error codes range. */
@@ -57,9 +57,9 @@ public enum ErrorCodes implements ErrorCode {
 	}
 
 	/**
-	 * Catalog Exception.
+	 * Inventory Exception.
 	 *
-	 * @return the Catalog exception
+	 * @return the Inventory exception
 	 */
 
 	public final InventoryServiceException createInventoryServiceException(final Object... pArguments) {
@@ -67,10 +67,10 @@ public enum ErrorCodes implements ErrorCode {
 	}
 
 	/**
-	 * Catalog Exception with variable arguments.
+	 * Inventory Exception with variable arguments.
 	 *
 	 * @param pMessageArguments the message arguments
-	 * @return the Catalog exception
+	 * @return the Inventory exception
 	 */
 	public final InventoryServiceException createInventoryServiceException(final Throwable pCause,
 			final Object... pArguments) {
@@ -78,9 +78,9 @@ public enum ErrorCodes implements ErrorCode {
 	}
 
 	/**
-	 * Catalog Exception.
+	 * Inventory Exception.
 	 *
-	 * @return the Catalog exception
+	 * @return the Inventory exception
 	 */
 
 	public final InventorySystemException createInventorySystemException(final Object... pArguments) {
@@ -88,10 +88,10 @@ public enum ErrorCodes implements ErrorCode {
 	}
 
 	/**
-	 * Catalog Exception with variable arguments.
+	 * Inventory Exception with variable arguments.
 	 *
 	 * @param pMessageArguments the message arguments
-	 * @return the Catalog exception
+	 * @return the Inventory exception
 	 */
 	public final InventorySystemException createInventorySystemException(final Throwable pCause,
 			final Object... pArguments) {

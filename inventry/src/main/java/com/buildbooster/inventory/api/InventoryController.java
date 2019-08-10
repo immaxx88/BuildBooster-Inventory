@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,28 +36,52 @@ public class InventoryController {
 	@Autowired
 	InventoryResponse inventoryResponse;
 
-	@RequestMapping(value = "/getallrecords", method = RequestMethod.GET, produces = "application/json")
-	@ApiOperation(value = "Method for getting all records from inventry")
-	public List<InventoryResponse> getAllFromDB() throws InventoryServiceException {
-		// TODO code for validator
-		//InventoryResponse inventoryResponse = new InventoryResponse();
-		
+/******************************************************************************************************************/
+	@RequestMapping(value = "/getallinventory", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "API for getting all records from inventry")
+	public List<InventoryResponse> getAllFromDB() throws InventoryServiceException 
+	{
 		requestValidator.checkInventryRequest("parameter");
-		// TODO Service call
 		return inventoryService.getAllInventory();
-		//return null;
-		//return List<InventoryResponse>;
-		}
-	
-	@RequestMapping(value = "/createinventory", method = RequestMethod.POST, produces = "application/json" )
-	@ApiOperation(value = "Method for creating a Inventory")
-	public InventoryResponse createInventory(@RequestBody InventoryRequest inventoryRequest) throws InventoryServiceException {
-		//System.out.println("In Create Inventory");
-		requestValidator.checkInventryRequest(inventoryRequest);
-		InventoryModel transformInventryRequest = requestTransformer.transformInventryRequest(inventoryRequest);
-
-		return  inventoryService.saveInventory(transformInventryRequest);
-		//return ResponseEntity<InventoryResponse> ;
 	}
 	
+ /******************************************************************************************************************/
+	@RequestMapping(value = "/createinventory", method = RequestMethod.POST, produces = "application/json" )
+	@ApiOperation(value = "API for creating a Inventory")
+	public InventoryResponse createInventory(@RequestBody InventoryRequest inventoryRequest) throws InventoryServiceException 
+	{
+		requestValidator.checkInventryRequest(inventoryRequest);
+		InventoryModel transformInventryRequest = requestTransformer.transformInventryRequest(inventoryRequest);
+		return  inventoryService.saveInventory(transformInventryRequest);
+
+	}
+	
+/*****************************************************************************************************************/
+	
+	@RequestMapping(value = "/getallinventory/{companyId}", method = RequestMethod.GET, produces= "application/json")
+	@ApiOperation(value = "API for fetching inventory against a company for all facilities")
+	public List<InventoryResponse> fetchCompanyInventory(@PathVariable(value = "companyId") Long companyid) throws InventoryServiceException 
+	{
+		requestValidator.checkCompanyID(companyid);
+		return inventoryService.getCompanyInventory(companyid);
+	}
+	
+/******************************************************************************************************************/
+	@RequestMapping(value = "/getallinventory/{companyId}/{facilityId}", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value="API for fetching inventory against a specific facility of a company")
+	public List<InventoryResponse> fetchFacilityInventory(@PathVariable(value = "companyId") Long companyid , @PathVariable (value = "facilityId") Long facilityid)
+	{
+		return inventoryService.getFacilityInventory(companyid,facilityid);
+	}
+	
+/******************************************************************************************************************/
+	
+	@RequestMapping(value = "/getallinventory/{companyId}/{facilityId}/{inventoryItemId}", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value="API for fetching inventory item against a specific facility of a company")
+	public InventoryResponse fetchFacilityItemInventory(@PathVariable(value = "companyId") Long companyid , @PathVariable (value = "facilityId") Long facilityid,@PathVariable (value = "inventoryItemId") Long inventoryitemid)
+	{
+		return inventoryService.getFacilityItem(companyid,facilityid,inventoryitemid);
+	}
+	
+/******************************************************************************************************************/
 }

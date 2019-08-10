@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class InventoryRequest {
 	
 	
-	 Long inventoryItemId;
+	 //Long inventoryItemId;
 
 	 Long productId;
 
